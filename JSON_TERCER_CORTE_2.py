@@ -1,11 +1,16 @@
 import json
 
-# JSON actualizado con más productos
 json_data = '''
 {
   "nombre_tienda": "Luz del Día",
   "ubicacion": "Medellín, Colombia",
   "moneda": "COP",
+  "horarios": {
+    "lunes_a_viernes": "8:00 AM - 7:00 PM",
+    "sabado": "9:00 AM - 6:00 PM",
+    "domingo": "Cerrado"
+  },
+  "estado_tienda": "Abierta",
   "inventario": {
     "en_tienda": [
       {
@@ -302,11 +307,19 @@ json_data = '''
 }
 '''
 
-# Cargar el JSON en Python
 data = json.loads(json_data)
 
-# Consultas
+
+
+print(f"🏪 Tienda: {data['nombre_tienda']}")
+print(f"📍 Ubicación: {data['ubicacion']}")
+print(f"⏰ Horarios de apertura:")
+print(f" - Lunes a Viernes: {data['horarios']['lunes_a_viernes']}")
+print(f" - Sábados: {data['horarios']['sabado']}")
+print(f" - Domingo: {data['horarios']['domingo']}")
+
 print("🧵 Productos en tendencia:")
+
 for item in data['inventario']['en_tienda']:
     prod = item['producto']
     if prod['en_tendencia']:
@@ -325,7 +338,7 @@ print("\n🚛 Productos en camino:")
 for prod in data['inventario']['en_camino']:
     print(f" - {prod['nombre']} llegará el {prod['fecha_llegada_estimada']} (Motivo: {prod['motivo_retraso']})")
 
-# Estadísticas
+
 stats = data['estadisticas']
 print(f"\n📊 Totales:")
 print(f" - En stock: {stats['total_en_stock']}")
